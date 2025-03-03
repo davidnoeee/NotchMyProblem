@@ -78,12 +78,10 @@ This will automatically:
 
 ### Custom Overrides
 
-| [visual: iPhone with notch showing incorrect spacing] | [visual: iPhone with Dynamic Island showing adjusted spacing] | [visual: iPhone showing custom spacing for specific app design] |
-|:-----------------------------:|:-----------------------------:|:-----------------------------:|
-| **API Inaccuracies**          | **Device-Specific Tuning**    | **Design Customization**     |
-| Some devices report incorrect notch dimensions through the API | Different device generations need specific adjustments | Your app's design may require custom spacing |
-| Overrides correct the reported values to match actual device dimensions | Fine-tune the spacing for each device family | Adjust the spacing to match your specific UI requirements |
-| Ensures consistent UI across all devices | Provides optimal experience on each device model | Maintains your app's unique design language |
+
+| ![iPhone with notch showing incorrect spacing](assets/notchError.png)| **API Inaccuracies** |
+|:-----------------------------------------------------:|:---------------------|
+|                                                     | Some devices report incorrect notch dimensions through the API. Overrides correct the reported values to match actual device dimensions, ensuring consistent UI across all devices. |
 
 NotchMyProblem provides several ways to customize how the notch/island area is handled:
 
