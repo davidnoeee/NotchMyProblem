@@ -213,6 +213,6 @@ NotchMyProblem is available under the MIT license. See the LICENSE file for more
 
 # Acknowledgments
 
-- This package uses private API information in a safe, non-invasive way
+- This package uses private API information in a safe, non-invasive way, however use at your own risk considering app store rules
 - Special thanks to the iOS developer community for sharing knowledge about device-specific quirks
 - Check out [TopNotch](https://github.com/samhenrigold/TopNotch) which helped inspire this solution and provided valuable insights into working with the notch/Dynamic Island
