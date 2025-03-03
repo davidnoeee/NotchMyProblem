@@ -76,12 +76,11 @@ This will automatically:
 
 ## **Advanced Usage**
 
-### Custom Overrides
-
-
-| ![iPhone with notch showing incorrect spacing](assets/notchError.png)| **API Inaccuracies** |
-|:-----------------------------------------------------:|:---------------------|
-|                                                     | Some devices report incorrect notch dimensions through the API. Overrides correct the reported values to match actual device dimensions, ensuring consistent UI across all devices. |
+<div align="leading">
+  <img width="200" height="200" src="assets/notchError.png" alt="iPhone with notch showing incorrect spacing">
+  <h3><b>Custom Overrides for API Inaccuracies</b></h3>
+  <p>Some devices report incorrect notch dimensions through the API. Overrides correct the reported values to match actual device dimensions, ensuring consistent UI across all devices.</p>
+</div>
 
 NotchMyProblem provides several ways to customize how the notch/island area is handled:
 
