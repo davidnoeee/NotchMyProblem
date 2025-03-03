@@ -36,7 +36,7 @@ extension UIScreen {
         // Safely get the exclusion area object
         let areaExclusionMethod = {
             let implementation = self.method(for: areaExclusionSelector)
-            let methodType = (@convention(c) (AnyObject, Selector) -> AnyObject).self
+            let methodType = (@convention(c) (AnyObject, Selector) -> AnyObject?).self
             return unsafeBitCast(implementation, to: methodType)
         }()
         
@@ -44,7 +44,7 @@ extension UIScreen {
         
         // Check if the object exists and responds to the rect selector
         let rectSelector = NSSelectorFromString("rect")
-        guard object != nil, object.responds(to: rectSelector) else {
+        guard let object, object.responds(to: rectSelector) else {
             return nil
         }
         
