@@ -6,3 +6,30 @@ DerivedData/
 .swiftpm/configuration/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
+
+# Xcode Project Specifics
+*.pbxuser
+!*.pbxuser/xcuserdata/
+*.mode1v3
+!*.mode1v3/xcuserdata/
+*.perspectivev3
+*.xccheckout
+
+# Code signing identities
+**/project.pbxproj
+**/xcuserdata/*xcuserdatad/xcschemes/xcschememanagement.plist
+**/xcschemes/*.xcscheme
+**/xcshareddata/xcschemes/*.xcscheme
+
+# Built products
+build/
+build # Added to catch files named "build" without extension
+DerivedData/
+
+# Package.resolved
+Package.resolved
+
+# Other
+*.swp
+*.lock
+*.moved-aside
