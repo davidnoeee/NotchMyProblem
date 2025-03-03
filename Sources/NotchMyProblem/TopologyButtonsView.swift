@@ -58,9 +58,9 @@ public struct TopologyButtonsView<LeadingButton: View, TrailingButton: View>: Vi
             }
             // Adjust height based on device topology
             .frame(height: hasTopCutout ? statusBarHeight + 4 : 40)
+            .padding(.top, hasTopCutout ? 0 : 5)
             .edgesIgnoringSafeArea(.all)
             .padding(.horizontal, 15)
-            .padding(.top, hasTopCutout ? 0 : 2)
         }
     }
     
