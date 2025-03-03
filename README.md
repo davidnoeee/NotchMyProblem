@@ -214,5 +214,4 @@ NotchMyProblem is available under the MIT license. See the LICENSE file for more
 ## **Acknowledgments**
 
 - This package uses private API information in a safe, non-invasive way
-- Inspired by the challenges of creating consistent UIs across different iPhone models
 - Special thanks to the iOS developer community for sharing knowledge about device-specific quirks
