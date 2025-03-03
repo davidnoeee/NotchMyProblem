@@ -27,7 +27,7 @@ NotchMyProblem is a lightweight Swift package that makes it easy to position but
 |:-----------------------------:|:-----------------------------:|:-----------------------------:|
 | **Notch Devices**             | **Dynamic Island Devices**    | **Standard Devices**          |
 | Automatically positions buttons around the notch | Adapts to the Dynamic Island's dimensions | Falls back to standard positioning |
-| Works with iPhone X -> iPhone 13 Series, iPhone 16e | Supports iPhone 14 Pro and newer | Compatible with older iPhones |
+| Works with iPhone X → iPhone 13 Series, iPhone 16e | Supports iPhone 14 Pro and newer | Compatible with older iPhones |
 | Applies device-specific adjustments | Uses precise measurements | Maintains consistent UI across all devices |
 
 NotchMyProblem automatically detects the device type and adjusts the UI accordingly, ensuring your buttons are perfectly positioned regardless of the device model.
