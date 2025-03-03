@@ -23,7 +23,7 @@ NotchMyProblem is a lightweight Swift package that makes it easy to position but
 
 ## **Key Components**
 
-| [visual: iPhone with notch showing buttons positioned on either side] | [visual: iPhone with Dynamic Island showing buttons positioned on either side] | [visual: iPhone without notch showing buttons in normal positions] |
+| ![iPhone with notch showing buttons positioned on either side](assets/withNotch.png) | ![iPhone with Dynamic Island showing buttons positioned on either side](assets/withIsland.png) | ![iPhone without notch showing buttons in normal positions](assets/none.png) |
 |:-----------------------------:|:-----------------------------:|:-----------------------------:|
 | **Notch Devices**             | **Dynamic Island Devices**    | **Standard Devices**          |
 | Automatically positions buttons around the notch | Adapts to the Dynamic Island's dimensions | Falls back to standard positioning |
@@ -213,6 +213,6 @@ NotchMyProblem is available under the MIT license. See the LICENSE file for more
 
 # Acknowledgments
 
-- This package uses private API information in a safe, non-invasive way
+- This package uses private API information in a safe, non-invasive way, however use at your own risk considering app store rules
 - Special thanks to the iOS developer community for sharing knowledge about device-specific quirks
 - Check out [TopNotch](https://github.com/samhenrigold/TopNotch) which helped inspire this solution and provided valuable insights into working with the notch/Dynamic Island
