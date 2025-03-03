@@ -13,53 +13,58 @@ import UIKit
 extension UIScreen {
     /// Returns the frame of the Dynamic Island or notch.
     var exclusionArea: CGRect? {
+        // Early return for devices known not to have a notch/island
+        // Check if the device is an iPhone and if it has a notch based on model
+        let modelId = UIDevice.modelIdentifier
+        let isNotchedDevice = modelId.hasPrefix("iPhone") &&
+                             !["iPhone8", "iPhone9", "iPhone10,4", "iPhone10,5"].contains { modelId.hasPrefix($0) }
+        
+        if !isNotchedDevice {
+            return nil
+        }
+        
         let areaExclusionSelector = {
             let selectorName = ["Area", "exclusion", "_"].reversed().joined()
             return NSSelectorFromString(selectorName)
         }()
         
-        if responds(to: areaExclusionSelector) {
-            let areaExclusionMethod = {
-                let implementation = self.method(for: areaExclusionSelector)
-                let methodType = (@convention(c) (AnyObject, Selector) -> AnyObject).self
-                return unsafeBitCast(implementation, to: methodType)
-            }()
-            
-            let object = areaExclusionMethod(self, areaExclusionSelector)
-            let rectSelector = NSSelectorFromString("rect")
-            
-            if object.responds(to: rectSelector) {
-                let rectMethod = {
-                    let implementation = object.method(for: rectSelector)
-                    let methodType = (@convention(c) (AnyObject, Selector) -> CGRect).self
-                    return unsafeBitCast(implementation, to: methodType)
-                }()
-                
-                return rectMethod(object, rectSelector)
-            } else {
-                #if os(iOS)
-                if #available(iOS 14.0, *) {
-                    Logger(subsystem: "com.notchmyproblem", category: "UIScreenExtension")
-                        .error("Rect method not found - API may have changed")
-                } else {
-                    os_log("Rect method not found - API may have changed", log: OSLog(subsystem: "com.notchmyproblem", category: "UIScreenExtension"), type: .error)
-                }
-                #endif
-            }
-        } else {
-            #if os(iOS)
-            if #available(iOS 14.0, *) {
-                Logger(subsystem: "com.notchmyproblem", category: "UIScreenExtension")
-                    .error("Exclusion area method not found - API may have changed")
-            } else {
-                os_log("Exclusion area method not found - API may have changed", log: OSLog(subsystem: "com.notchmyproblem", category: "UIScreenExtension"), type: .error)
-            }
-            #endif
+        // Check if the method exists before trying to call it
+        guard self.responds(to: areaExclusionSelector) else {
+            return nil
         }
         
-        return nil
+        // Safely get the exclusion area object
+        let areaExclusionMethod = {
+            let implementation = self.method(for: areaExclusionSelector)
+            let methodType = (@convention(c) (AnyObject, Selector) -> AnyObject).self
+            return unsafeBitCast(implementation, to: methodType)
+        }()
+        
+        let object = areaExclusionMethod(self, areaExclusionSelector)
+        
+        // Check if the object exists and responds to the rect selector
+        let rectSelector = NSSelectorFromString("rect")
+        guard object != nil, object.responds(to: rectSelector) else {
+            return nil
+        }
+        
+        let rectMethod = {
+            let implementation = object.method(for: rectSelector)
+            let methodType = (@convention(c) (AnyObject, Selector) -> CGRect).self
+            return unsafeBitCast(implementation, to: methodType)
+        }()
+        
+        let rect = rectMethod(object, rectSelector)
+        
+        // Validate the rect before returning it
+        if rect.width <= 0 || rect.height <= 0 || rect.isInfinite || rect.isNull {
+            return nil
+        }
+        
+        return rect
     }
 }
+
 
 /// Logging helper that works across iOS versions
 @available(iOS 13.0, *)

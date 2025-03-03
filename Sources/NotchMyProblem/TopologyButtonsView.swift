@@ -36,18 +36,19 @@ public struct TopologyButtonsView<LeadingButton: View, TrailingButton: View>: Vi
         GeometryReader { geometry in
             // Detect device topology based on safe area height
             let statusBarHeight = geometry.safeAreaInsets.top
-            let hasTopCutout = statusBarHeight > 10
+            let hasTopCutout = statusBarHeight > 40
             
             HStack(spacing: 0) {
                 // Leading button with appropriate alignment
                 leadingButton
                     .frame(maxWidth: .infinity, alignment: hasTopCutout ? .center : .leading)
+                    
                     .padding(7)
                 
                 // Space for the device's top cutout if present
-                if hasTopCutout {
+                if hasTopCutout, let exclusionWidth = getAdjustedExclusionRect()?.width, exclusionWidth > 0 {
                     Color.clear
-                        .frame(width: getAdjustedExclusionRect().width)
+                        .frame(width: exclusionWidth)
                 }
                 
                 // Trailing button with appropriate alignment
@@ -59,18 +60,95 @@ public struct TopologyButtonsView<LeadingButton: View, TrailingButton: View>: Vi
             .frame(height: hasTopCutout ? statusBarHeight + 4 : 40)
             .edgesIgnoringSafeArea(.all)
             .padding(.horizontal, 15)
-            .padding(.top, hasTopCutout ? 0 : 15)
+            .padding(.top, hasTopCutout ? 0 : 2)
         }
     }
     
     /// Gets the adjusted exclusion rect, applying any environment overrides
-    private func getAdjustedExclusionRect() -> CGRect {
+    private func getAdjustedExclusionRect() -> CGRect? {
         if let overrides = environmentOverrides {
             // Use environment-specific overrides if available
-            return NotchMyProblem.shared.adjustedExclusionRect(using: overrides)
+            let rect = NotchMyProblem.shared.adjustedExclusionRect(using: overrides)
+            return rect.isEmpty ? nil : rect
         } else {
             // Otherwise use the instance's configured overrides
-            return NotchMyProblem.shared.adjustedExclusionRect
+            let rect = NotchMyProblem.shared.adjustedExclusionRect
+            return rect.isEmpty ? nil : rect
         }
     }
+}
+
+#Preview {
+        // Default TopologyButtonsView
+        TopologyButtonsView(
+            leadingButton: {
+                Button(action: {
+                    print("Default: Back tapped")
+                }) {
+                    Image(systemName: "chevron.left")
+                        .font(.headline)
+                }
+            },
+            trailingButton: {
+                Button(action: {
+                    print("Default: Save tapped")
+                }) {
+                    Text("Save")
+                        .font(.headline)
+                }
+            }
+        )
+        .previewDisplayName("Default")
+    
+}
+
+#Preview {
+    
+
+    // TopologyButtonsView with view-specific override
+    TopologyButtonsView(
+        leadingButton: {
+            Button(action: {
+                print("Override: Back tapped")
+            }) {
+                Image(systemName: "arrow.left")
+                    .font(.headline)
+            }
+        },
+        trailingButton: {
+            Button(action: {
+                print("Override: Save tapped")
+            }) {
+                Text("Save")
+                    .font(.headline)
+            }
+        }
+    )
+    .notchOverride(.series(prefix: "iPhone14", scale: 0.6, heightFactor: 0.6))
+    .previewDisplayName("With View Override")
+}
+
+#Preview{
+    // Another variant with different styling
+    TopologyButtonsView(
+        leadingButton: {
+            Button(action: {
+                print("Styled: Cancel tapped")
+            }) {
+                Text("Cancel")
+                    .font(.subheadline)
+                    .foregroundColor(.red)
+            }
+        },
+        trailingButton: {
+            Button(action: {
+                print("Styled: Confirm tapped")
+            }) {
+                Text("Confirm")
+                    .font(.subheadline)
+                    .foregroundColor(.green)
+            }
+        }
+    )
+    .previewDisplayName("Custom Styled")
 }
