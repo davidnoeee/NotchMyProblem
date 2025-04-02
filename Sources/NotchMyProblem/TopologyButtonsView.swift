@@ -60,7 +60,7 @@ public struct TopologyButtonsView<LeadingButton: View, TrailingButton: View>: Vi
             .frame(height: hasTopCutout ? statusBarHeight + 4 : 40)
             .padding(.top, hasTopCutout ? 0 : 5)
             .edgesIgnoringSafeArea(.all)
-            .padding(.horizontal, 15)
+            .padding(.horizontal, 5)
         }
     }
     
