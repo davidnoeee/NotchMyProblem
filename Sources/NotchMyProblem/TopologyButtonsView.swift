@@ -48,7 +48,7 @@ public struct TopologyButtonsView<LeadingButton: View, TrailingButton: View>: Vi
                 // Space for the device's top cutout if present
                 if hasTopCutout, let exclusionWidth = getAdjustedExclusionRect()?.width, exclusionWidth > 0 {
                     Color.clear
-                        .frame(width: exclusionWidth)
+                        .frame(width: exclusionWidth*0.7)
                 }
                 
                 // Trailing button with appropriate alignment
@@ -60,7 +60,7 @@ public struct TopologyButtonsView<LeadingButton: View, TrailingButton: View>: Vi
             .frame(height: hasTopCutout ? statusBarHeight + 4 : 40)
             .padding(.top, hasTopCutout ? 0 : 5)
             .edgesIgnoringSafeArea(.all)
-            .padding(.horizontal, 5)
+            .padding(.horizontal, 0)
         }
     }
     
